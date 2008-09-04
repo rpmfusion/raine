@@ -1,0 +1,11 @@
+--- raine-0.50.3/source/sdl/gui.cpp.orig	2007-01-26 10:35:56.000000000 +0000
++++ raine-0.50.3/source/sdl/gui.cpp	2007-02-26 18:00:50.000000000 +0000
+@@ -321,7 +321,7 @@
+ {
+    char str[256];
+ 
+-  setup_mouse_cursor(IMG_Load("bitmaps/cursor.png"));
++  setup_mouse_cursor(IMG_Load("/usr/share/raine/bitmaps/cursor.png"));
+ 
+ #ifdef RAINE_DEBUG
+    print_debug("StartGUI(): START\n");

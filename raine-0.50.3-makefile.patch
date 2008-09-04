@@ -1,0 +1,87 @@
+--- raine-0.50.3/makefile.orig	2007-02-22 09:29:23.000000000 +0000
++++ raine-0.50.3/makefile	2007-02-26 17:24:24.000000000 +0000
+@@ -20,7 +20,7 @@
+ # RAINE_DEBUG = 1
+ 
+ # Be verbose ?
+-# VERBOSE = 1
++VERBOSE = 1
+ 
+ # Use asm video core ? (comment to use C core)
+ ASM_VIDEO_CORE = 1
+@@ -202,8 +202,8 @@
+ SDL = 1
+ 
+    prefix = $(DESTDIR)/usr
+-   bindir = $(prefix)/games
+-   sharedir = $(prefix)/share/games
++   bindir = $(prefix)/bin
++   sharedir = $(prefix)/share
+    mandir = $(prefix)/man/man6
+    rainedata = $(sharedir)/raine
+ ifndef SDL
+@@ -256,7 +256,6 @@
+ 
+ ifndef SDL
+ ifeq ("$(shell if [ -e /usr/include/vga.h ] || [ -e /usr/local/include/vga.h ]; then echo yes; fi)","yes")
+-GFX_SVGALIB=1
+ endif
+ endif
+ 
+@@ -313,7 +312,7 @@
+ OBJDIR = $(OSTYPE)-sdl
+ endif
+ 
+-include cpuinfo
++#include cpuinfo
+ 
+ ifdef X86_64
+ OBJDIR := $(OBJDIR)64
+@@ -395,25 +394,18 @@
+ 
+ ifdef RAINE32
+ # when starting a game -> black screen if -O > 1 (bug in uint64 calculation)
+-CFLAGS = -O1
++#CFLAGS = -O1
+ else
+ # Seems to work now, at least with the sdl version ? (to be tested with windows !)
+-CFLAGS = -O3
++CFLAGS = $(RPMFLAGS)
+ endif
+ 
+ CFLAGS += $(INCDIR) \
+ 	$(DEFINE) \
+-	$(_MARCH) \
+-	-Wno-trigraphs \
+-	-fschedule-insns2 \
+-	-funroll-all-loops \
+-	-fexpensive-optimizations \
+-	-ffast-math \
+-	-w \
+-	-fomit-frame-pointer
++	$(_MARCH) 
+ 
+ # This is required for gcc-2.9x (bug in -fomit-frame-pointer)
+-CFLAGS_MCU = $(_MARCH) -O3 -fexpensive-optimizations # switches for the 68705 mcus
++CFLAGS_MCU = $(CFLAGS)
+ 
+ ifdef RAINE_UNIX
+ CFLAGS += -pipe
+@@ -1164,7 +1156,7 @@
+ 	./makedep $(OBJDIR) $(OBJS) > make.dep
+ 
+ cpuinfo:
+-	@sh ./detect-cpu
++#	@sh ./detect-cpu
+ 
+ include make.dep
+ 
+@@ -1214,8 +1206,6 @@
+ endif
+ 	sh -c "if [ -f hiscore.dat ]; then $(INSTALL_DATA) hiscore.dat $(rainedata); fi"
+ 	$(INSTALL_DATA) config/cheats.cfg $(rainedata)
+-	$(INSTALL_DATA) raine.desktop $(prefix)/share/applications
+-	$(INSTALL_DATA) raine.png $(prefix)/share/pixmaps
+ 
+ install_dirs:
+ 	$(MD) -pv $(bindir) $(rainedata) $(langdir) $(romdir) $(artdir) $(emudxdir) $(prefix)/share/pixmaps $(prefix)/share/applications $(bitmaps_dir) $(fonts_dir)
