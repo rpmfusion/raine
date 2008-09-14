@@ -1,11 +1,12 @@
 Name:           raine
 Version:        0.50.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Arcade emulator focused on Taito and Jaleco games hardware
 Group:          Applications/Emulators
 License:        GPL+ and Distributable
 URL:            http://www.rainemu.com
 Source0:        http://www.rainemu.com/html/archive/raines-%{version}.tar.bz2
+Source1:        %{name}.desktop
 Patch0:         %{name}-0.50.3-makefile.patch
 Patch1:         %{name}-0.50.3-fixdatadirloc.patch
 Patch2:         %{name}-0.50.3-fixcustomcursor.patch
@@ -52,21 +53,6 @@ chmod -x */*.c \
 %build
 make %{?_smp_mflags} RPMFLAGS="%{optflags} -fno-strict-aliasing"
 
-# Build desktop icon
-cat >%{name}.desktop <<EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=Raine
-GenericName=Arcade Emulator
-Comment=%{summary}
-Exec=%{name}
-Icon=%{name}
-Terminal=false
-Type=Application
-StartupNotify=false
-Categories=Game;Emulator;
-EOF
-
 
 %install
 rm -rf %{buildroot}
@@ -77,7 +63,7 @@ install -pm0644 %{name}.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 
 desktop-file-install --vendor dribble \
                      --dir %{buildroot}%{_datadir}/applications \
-                     %{name}.desktop
+                     %{SOURCE1}
 
 
 %clean
@@ -115,6 +101,9 @@ fi
 
 
 %changelog
+* Sun Sep 14 2008 Xavier Lamien <lxtnow[at]gmail.com> - 0.50.11-2
+- Update files and rebuild for RPM fusion.
+
 * Tue Mar 25 2008 Ian Chapman <packages[AT]amiga-hardware.com> 0.50.11-1
 - Upgrade to 0.50.11
 - Dropped changes/* and now include the general changelog
