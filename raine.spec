@@ -1,13 +1,13 @@
 Name:           raine
 Version:        0.50.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Arcade emulator focused on Taito and Jaleco games hardware
 Group:          Applications/Emulators
 License:        GPL+ and Distributable
 URL:            http://www.rainemu.com
 Source0:        http://www.rainemu.com/html/archive/raines-%{version}.tar.bz2
 Source1:        %{name}.desktop
-Patch0:         %{name}-0.50.3-makefile.patch
+Patch0:         %{name}-0.50.11-makefile.patch
 Patch1:         %{name}-0.50.3-fixdatadirloc.patch
 Patch2:         %{name}-0.50.3-fixcustomcursor.patch
 Patch3:         %{name}-0.50.11-incdirfix.patch
@@ -101,6 +101,9 @@ fi
 
 
 %changelog
+* Tue Oct 07 2008 Xavier Lamien <lxtnow[at]gmail.com> - 0.50.11-3
+- Update patch against new release.
+
 * Sun Sep 14 2008 Xavier Lamien <lxtnow[at]gmail.com> - 0.50.11-2
 - Update files and rebuild for RPM fusion.
 

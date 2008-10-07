@@ -1,5 +1,5 @@
---- raine-0.50.3/makefile.orig	2007-02-22 09:29:23.000000000 +0000
-+++ raine-0.50.3/makefile	2007-02-26 17:24:24.000000000 +0000
+--- raine-0.50.11/makefile.false	2008-03-14 23:24:04.000000000 +0100
++++ raine-0.50.11/makefile	2008-10-08 00:34:36.000000000 +0200
 @@ -20,7 +20,7 @@
  # RAINE_DEBUG = 1
  
@@ -9,18 +9,20 @@
  
  # Use asm video core ? (comment to use C core)
  ASM_VIDEO_CORE = 1
-@@ -202,8 +202,8 @@
+@@ -204,9 +204,9 @@
  SDL = 1
  
     prefix = $(DESTDIR)/usr
 -   bindir = $(prefix)/games
 -   sharedir = $(prefix)/share/games
+-   mandir = $(prefix)/man/man6
 +   bindir = $(prefix)/bin
 +   sharedir = $(prefix)/share
-    mandir = $(prefix)/man/man6
++   mandir = $(sharedir)/man/man6
     rainedata = $(sharedir)/raine
  ifndef SDL
-@@ -256,7 +256,6 @@
+    langdir = $(rainedata)/languages
+@@ -258,7 +258,6 @@
  
  ifndef SDL
  ifeq ("$(shell if [ -e /usr/include/vga.h ] || [ -e /usr/local/include/vga.h ]; then echo yes; fi)","yes")
@@ -28,7 +30,7 @@
  endif
  endif
  
-@@ -313,7 +312,7 @@
+@@ -305,7 +304,7 @@
  OBJDIR = $(OSTYPE)-sdl
  endif
  
@@ -37,7 +39,7 @@
  
  ifdef X86_64
  OBJDIR := $(OBJDIR)64
-@@ -395,25 +394,18 @@
+@@ -388,25 +387,18 @@
  
  ifdef RAINE32
  # when starting a game -> black screen if -O > 1 (bug in uint64 calculation)
@@ -59,15 +61,15 @@
 -	-ffast-math \
 -	-w \
 -	-fomit-frame-pointer
-+	$(_MARCH) 
++	$(_MARCH)
  
  # This is required for gcc-2.9x (bug in -fomit-frame-pointer)
 -CFLAGS_MCU = $(_MARCH) -O3 -fexpensive-optimizations # switches for the 68705 mcus
-+CFLAGS_MCU = $(CFLAGS)
++CFLAGS_MCU = $(CFLAGS)s # switches for the 68705 mcus
  
  ifdef RAINE_UNIX
  CFLAGS += -pipe
-@@ -1164,7 +1156,7 @@
+@@ -1156,7 +1148,7 @@
  	./makedep $(OBJDIR) $(OBJS) > make.dep
  
  cpuinfo:
@@ -76,9 +78,9 @@
  
  include make.dep
  
-@@ -1214,8 +1206,6 @@
- endif
+@@ -1207,8 +1199,6 @@
  	sh -c "if [ -f hiscore.dat ]; then $(INSTALL_DATA) hiscore.dat $(rainedata); fi"
+ 	sh -c "if [ -f history.dat ]; then $(INSTALL_DATA) history.dat $(rainedata); fi"
  	$(INSTALL_DATA) config/cheats.cfg $(rainedata)
 -	$(INSTALL_DATA) raine.desktop $(prefix)/share/applications
 -	$(INSTALL_DATA) raine.png $(prefix)/share/pixmaps
