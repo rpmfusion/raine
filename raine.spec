@@ -1,6 +1,6 @@
 Name:           raine
 Version:        0.50.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Arcade emulator focused on Taito and Jaleco games hardware
 Group:          Applications/Emulators
 License:        GPL+ and Distributable
@@ -19,8 +19,11 @@ BuildRequires:  SDL_image-devel
 BuildRequires:  SDL_ttf-devel
 BuildRequires:  zlib-devel
 Requires:       hicolor-icon-theme
-# Only compiles on x86 due to extensive x86 assembly
-ExclusiveArch:  %{ix86}
+# Only compiles on x86 due to extensive x86 assembly.
+# There should be a {ix86} instead of i386 in the ExclusiveArch line but
+# that would make plague build the package for athlon, i386, i586 and i686 :-/
+ExclusiveArch:  i386
+
 
 %description
 Raine emulates some M68000, M68020, Z80 and M68705 arcade games and is mainly
@@ -101,6 +104,9 @@ fi
 
 
 %changelog
+* Sat Oct 25 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.50.11-4
+- use i386 instead of ix86 for ExcludeArch
+
 * Tue Oct 07 2008 Xavier Lamien <lxtnow[at]gmail.com> - 0.50.11-3
 - Update patch against new release.
 
