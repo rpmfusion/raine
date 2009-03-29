@@ -1,6 +1,6 @@
 Name:           raine
 Version:        0.50.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Arcade emulator focused on Taito and Jaleco games hardware
 Group:          Applications/Emulators
 License:        GPL+ and Distributable
@@ -22,7 +22,11 @@ Requires:       hicolor-icon-theme
 # Only compiles on x86 due to extensive x86 assembly.
 # There should be a {ix86} instead of i386 in the ExclusiveArch line but
 # that would make plague build the package for athlon, i386, i586 and i686 :-/
+%if 0%{?fedora} >= 11
+ExclusiveArch:  i586
+%else
 ExclusiveArch:  i386
+%endif
 
 
 %description
@@ -104,6 +108,9 @@ fi
 
 
 %changelog
+* Sun Mar 29 2009 Julian Sikorski <belegdol@fedoraproject.org> - 0.50.11-6
+- Fedora 11 is i586, not i386
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.50.11-5
 - rebuild for new F11 features
 
