@@ -1,6 +1,6 @@
 Name:           raine
 Version:        0.50.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Arcade emulator focused on Taito and Jaleco games hardware
 Group:          Applications/Emulators
 License:        GPL+ and Distributable
@@ -108,6 +108,9 @@ fi
 
 
 %changelog
+* Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.50.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Sun Mar 29 2009 Julian Sikorski <belegdol@fedoraproject.org> - 0.50.11-6
 - Fedora 11 is i586, not i386
 
